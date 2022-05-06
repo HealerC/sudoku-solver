@@ -11,15 +11,7 @@ const solveSudoku = (req, res) => {
   }
 
   const validity = solver.validate(puzzle);
-  if (!validity.validCharacters) {
-    throw new Error('Invalid characters in puzzle');
-  }
-  if (!validity.length) {
-    throw new Error('Expected puzzle to be 81 characters long');
-  }
-  if (!validity.solvable) {
-    throw new Error('Puzzle cannot be solved');
-  }
+  solver.throwValidationErrors(validity);
   res.send("Solve Sudoku");
 };
 
