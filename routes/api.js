@@ -1,18 +1,11 @@
 'use strict';
-
-const SudokuSolver = require('../controllers/sudoku-solver.js');
+const { checkPlacement, solveSudoku } = require('../controllers/api.js');
 
 module.exports = function (app) {
-  
-  let solver = new SudokuSolver();
 
   app.route('/api/check')
-    .post((req, res) => {
-
-    });
+    .post(checkPlacement);
     
   app.route('/api/solve')
-    .post((req, res) => {
-
-    });
+    .post(solveSudoku);
 };
