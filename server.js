@@ -16,6 +16,8 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const errorHandlerMiddleware = require('./middlewares/error-handler.js');
+
 //Index page (static HTML)
 app.route('/')
   .get(function (req, res) {
@@ -34,6 +36,8 @@ app.use(function(req, res, next) {
     .type('text')
     .send('Not Found');
 });
+
+app.use(errorHandlerMiddleware);
 
 //Start our server and tests!
 const PORT = process.env.PORT || 3000
