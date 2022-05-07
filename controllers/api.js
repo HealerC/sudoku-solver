@@ -2,6 +2,9 @@ const SudokuSolver = require('./sudoku-solver.js');
 let solver = new SudokuSolver();
 
 const checkPlacement = (req, res) => {
+  const { puzzle, coordinate, value } = req.body;
+  const validity = solver.validate(puzzle, coordinate, value);
+  solver.throwValidationErrors(validity);
   res.send("Check placement");
 };
 const solveSudoku = (req, res) => {
