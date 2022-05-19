@@ -24,7 +24,7 @@ const solveSudoku = (req, res) => {
   //solver.throwValidationErrors(validity);
 
   const puzzleSolution = solver.solve(puzzle);
-  res.send(puzzleSolution);
+  res.json({ solution: puzzleSolution });
 };
 
 module.exports = {
