@@ -8,7 +8,8 @@ const checkPlacement = (req, res) => {
   if (!puzzle || !coordinate || !value) {
     throw new Error("Required field(s) missing");
   }
-  res.send("Check placement");
+  const placement = solver.checkPlacement(puzzle, coordinate, value);
+  res.json(placement);
 };
 const solveSudoku = (req, res) => {
   const puzzle = req.body.puzzle;
