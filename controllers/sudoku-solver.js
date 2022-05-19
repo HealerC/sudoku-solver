@@ -30,7 +30,7 @@ class SudokuSolver {
 
     if (coordinate !== undefined) {
       validity.isCoordinate =
-        this.cells.indexOf(coordinate) >= 0 ? true : false;
+        this.cells.indexOf(coordinate.toUpperCase()) >= 0 ? true : false;
     }
     if (value !== undefined) {
       validity.isValue = value >= 1 && value <= 9 ? true : false;
