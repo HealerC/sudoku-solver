@@ -32,7 +32,7 @@ class SudokuSolver {
   }
   checkColPlacement(grid, row, column, value) {
     for (let r in grid) {
-      if (grid[r][column - 1] === value) return true;
+      if (grid[r][column] === value) return true;
     }
     return false;
   }
@@ -40,7 +40,7 @@ class SudokuSolver {
     // Every number in the same region will get the same number
     // when divided by n(colRegion) or n(rowRegion)
     let rowCalc = Math.floor(row / 3); // Rote calculation
-    let colCalc = Math.floor((column - 1) / 3); // Rote calculation
+    let colCalc = Math.floor(column / 3); // Rote calculation
 
     for (let row = 0; row < grid.length; row++) {
       for (let col = 0; col < grid[row].length; col++) {
@@ -60,7 +60,11 @@ class SudokuSolver {
 
     const rowLetter = coordinate.match(/\D/)[0];
     const row = this.gridLetters[rowLetter.toLowerCase()];
-    const col = coordinate.match(/\d/)[0];
+    const col = coordinate.match(/\d/)[0] - 1;
+
+    if (puzzleGrid[row][col] === value) {
+      return { valid: true };
+    }
 
     const presentInRow = this.checkRowPlacement(puzzleGrid, row, col, value);
     const presentInCol = this.checkColPlacement(puzzleGrid, row, col, value);
