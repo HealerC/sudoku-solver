@@ -5,6 +5,9 @@ const checkPlacement = (req, res) => {
   const { puzzle, coordinate, value } = req.body;
   const validity = solver.validate(puzzle, coordinate, value);
   solver.throwValidationErrors(validity);
+  if (!puzzle || !coordinate || !value) {
+    throw new Error("Required field(s) missing");
+  }
   res.send("Check placement");
 };
 const solveSudoku = (req, res) => {
