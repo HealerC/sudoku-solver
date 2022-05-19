@@ -1,4 +1,4 @@
-const SudokuSolver = require('./sudoku-solver.js');
+const SudokuSolver = require("./sudoku-solver.js");
 let solver = new SudokuSolver();
 
 const checkPlacement = (req, res) => {
@@ -10,15 +10,17 @@ const checkPlacement = (req, res) => {
 const solveSudoku = (req, res) => {
   const puzzle = req.body.puzzle;
   if (!puzzle) {
-    throw new Error('Required field missing');
+    throw new Error("Required field missing");
   }
 
   const validity = solver.validate(puzzle);
   solver.throwValidationErrors(validity);
-  res.send("Solve Sudoku");
+
+  const puzzleSolution = solver.solve(puzzle);
+  res.send(puzzleSolution);
 };
 
 module.exports = {
   checkPlacement,
-  solveSudoku
+  solveSudoku,
 };
