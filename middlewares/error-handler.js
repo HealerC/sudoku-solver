@@ -4,7 +4,7 @@ const errorHandler = (err, req, res, next) => {
       err.message === "Puzzle could not be solved."
         ? "Puzzle cannot be solved"
         : err.message;
-    return res.status(400).json({ error: err.message });
+    return res.json({ error: err.message });
   }
   return res.status(500).json({ error: err });
 };
