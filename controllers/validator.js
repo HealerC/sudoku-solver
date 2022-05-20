@@ -1,6 +1,8 @@
+/* Handles validation for both solve puzzle and check placement */
 const validate = (puzzleString, coordinate, value, grid = 9) => {
   let cells = []; // the coordinates of each cell (e.g. A1, I9 etc)
 
+  /* Push all coordinates of a given grid into an array e.g. ["A1", "A2", "A3" ... "I9"] */
   for (
     let row = 0, letter = "a";
     row < grid;
@@ -23,11 +25,13 @@ const validate = (puzzleString, coordinate, value, grid = 9) => {
   }
 
   if (coordinate !== undefined) {
+    // For check placement
     if (cells.indexOf(coordinate.toUpperCase()) < 0) {
       throw new Error("Invalid coordinate");
     }
   }
   if (value !== undefined) {
+    // For check placement
     if (!(value >= 1 && value <= 9)) {
       throw new Error("Invalid value");
     }
