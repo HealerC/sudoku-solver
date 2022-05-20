@@ -9,12 +9,20 @@ const { puzzlesAndSolutions } = require("../controllers/puzzle-strings.js");
 
 const testSolver = {
   solve(puzzle) {
-    validate(puzzle);
-    return solver.solve(puzzle);
+    try {
+      validate(puzzle);
+      return solver.solve(puzzle);
+    } catch (error) {
+      return error.message;
+    }
   },
   check(puzzle, coordinate, value) {
-    validate(puzzle, coordinate, value);
-    return solver.checkPlacement(puzzle, coordinate, value);
+    try {
+      validate(puzzle, coordinate, value);
+      return solver.checkPlacement(puzzle, coordinate, value);
+    } catch (error) {
+      return error.message;
+    }
   },
 };
 
@@ -30,14 +38,14 @@ suite("UnitTests", () => {
       assert.equal(testSolver.solve(validPuzzleString), puzzleSolution);
     });
     test("Logic handles a puzzle string with invalid characters (not 1-9 or .)", function () {
-      assert.throws(
-        testSolver.solve.bind(testSolver, withInvalidCharacters),
+      assert.equal(
+        testSolver.solve(withInvalidCharacters),
         "Invalid characters in puzzle"
       );
     });
     test("Logic handles a puzzle string that is not 81 characters in length", function () {
-      assert.throws(
-        testSolver.solve.bind(testSolver, withInvalidLength),
+      assert.equal(
+        testSolver.solve(withInvalidLength),
         "Expected puzzle to be 81 characters long"
       );
     });
@@ -88,15 +96,15 @@ suite("UnitTests", () => {
 
   suite("Puzzle strings 2", function () {
     test("Valid puzzle strings pass the solver", function () {
-      assert.doesNotThrow(
-        testSolver.solve.bind(testSolver, validPuzzleString),
-        "Puzzle could not be solved"
+      assert.notEqual(
+        testSolver.solve(validPuzzleString),
+        "Puzzle could not be solved."
       );
     });
     test("Invalid puzzle strings fail the solver", function () {
-      assert.throws(
-        testSolver.solve.bind(testSolver, invalidPuzzleString),
-        "Puzzle could not be solved"
+      assert.equal(
+        testSolver.solve(invalidPuzzleString),
+        "Puzzle could not be solved."
       );
     });
     test("Solver returns the expected solution for an incomplete puzzle", function () {
